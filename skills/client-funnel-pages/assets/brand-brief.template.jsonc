@@ -1,0 +1,187 @@
+// ════════════════════════════════════════════════════════════════════════
+//  BRAND BRIEF — fill this in for ONE client, then run:
+//      python3 scripts/build_funnel.py path/to/this-brief.jsonc --out ~/Desktop
+//
+//  • Comments can be full-line or trailing (// ...). URLs are safe.
+//  • Required fields are marked REQUIRED. Leave optional fields as null to use
+//    the default, or delete the line entirely.
+//  • See brand-brief.example.jsonc for a complete, filled-in reference (SYAF).
+// ════════════════════════════════════════════════════════════════════════
+{
+  // Which pages to build. Keep only the ones you need.
+  "pages": ["vsl", "opt-in", "book-a-call", "confirmation", "privacy", "terms", "404"],
+
+  "client_slug": "",                  // REQUIRED — output folder name, kebab-case (e.g. "acme-cpa")
+
+  // ── BRAND IDENTITY (used on every page) ──
+  "brand_name": "",                   // REQUIRED — short display name (e.g. "Acme Bookkeeping")
+  "legal_entity": "",                 // REQUIRED — full legal name (e.g. "Acme Bookkeeping, LLC")
+  "accent": "",                       // REQUIRED — primary brand hex (e.g. "#6800fc")
+  "accent_bright": null,              // optional — hover shade; null = auto-lighten the accent
+  "page_bg": null,                    // optional — light background (default "#f5f5f5")
+  "card_bg": null,                    // optional — dark hero card (default "#121212")
+  "font_family": null,                // optional — any Google Font (default "Poppins") — used for body + headings
+  "headline_font": null,              // optional — a separate Google Font for H1/H2/H3 (e.g. "Playfair Display"); null = same as font_family
+  "theme": null,                      // optional — "light" or "dark" (default "dark" = dark hero card). "light" = white hero card, dark text, for an all-light page set.
+  "logo_url": "",                     // REQUIRED — dark wordmark for light bg (header + footer)
+  "logo_white_url": null,             // optional — white wordmark; enables the dark mobile header on dark-hero pages
+  "logo_aspect": "",                  // REQUIRED — logo's "width / height" in px (e.g. "2476 / 149"). Drives the rendered logo size — a wrong aspect makes the logo too big/small.
+  "logo_width": null,                 // optional — header logo width in px; null = auto-derived from logo_aspect (~34px tall). Keeps square/badge logos from rendering at full wordmark width.
+  "footer_logo_width": null,          // optional — footer logo width in px; null = ~0.62 × header
+  "trust_logo_height": null,          // optional — px height for the "as seen in" trust-logo strip
+  "brand_lock_confirmed": false,      // set true ONLY after Peter signs off the brand-lock (Gate A). Lets a build proceed even when a brand color coincides with a known page-builder default.
+  "prior_art_checked": false,         // set true ONLY after reading the client's existing funnels in "01 Landing Pages/<Client>/" and inheriting their styles (Step 0). Required when prior funnels exist.
+
+  // ── VSL LANDING PAGE (only if "vsl" is in pages) ──
+  "vsl": {
+    "page_title": "",                 // REQUIRED — browser tab title
+    "meta_description": "",           // REQUIRED — SEO/social description
+    "og_title": null,                 // optional — defaults to page_title
+    "og_description": null,           // optional — defaults to meta_description
+    "callout": "",                    // REQUIRED — eyebrow above the headline
+    "headline": "",                   // REQUIRED — the big H1
+    "subheadline": "",                // REQUIRED — supporting line under the headline
+    "cta_text": "",                   // REQUIRED — button label
+    "form_heading": "",               // REQUIRED — heading above the Typeform
+    "wistia_id": "",                  // REQUIRED — Wistia media id
+    "typeform_id": "",                // REQUIRED — Typeform form id
+    "trust_logos": [                  // OPTIONAL — partner/"as seen in" logos { url, alt }; omit for no strip
+      { "url": "", "alt": "" }
+    ],
+    // OPTIONAL — client-testimonial video section, rendered below the application.
+    // Delete this whole block to omit it. Each item: { wistia_id | youtube, name?,
+    // title?, result?, quote? } (result = an accent headline/stat above the quote).
+    "testimonials": {
+      "heading": "",                  // e.g. "What our clients say"
+      "subheading": null,             // optional line under the heading
+      "items": [
+        { "wistia_id": "", "name": "", "title": "", "result": "", "quote": "" }
+      ]
+    }
+  },
+
+  // ── OPT-IN / LEAD-MAGNET PAGE (only if "opt-in" is in pages) ──
+  "optin": {
+    "page_title": "",                 // REQUIRED
+    "meta_description": "",           // REQUIRED
+    "eyebrow": "",                    // REQUIRED — small line above the headline
+    "headline": "",                   // REQUIRED — the big H1
+    "headline_highlight": null,       // optional — a substring of the headline to accent
+    "subheadline": "",                // REQUIRED
+    "fineprint": null,                // optional — small disclaimer under the subheadline
+    "cta_text": "",                   // REQUIRED — scroll-to-form button label
+    "lead_magnet_image": "",          // REQUIRED — URL of the cover/mockup
+    "lead_magnet_alt": null,          // optional — alt text for the cover
+    "trust_heading": null,            // optional (default "Loved by firm owners at…")
+    "trust_logos": [                  // REQUIRED — DARK/color logos (they sit on a light bg)
+      { "url": "", "alt": "" }
+    ],
+    "form": {
+      "qualifier_label": "",          // REQUIRED — dropdown label (e.g. "Revenue")
+      "qualifier_options": [""],      // REQUIRED — dropdown choices
+      "ghl_qualifier_field": "",      // GHL custom-field name for this field on the hidden form (inspect it)
+      "submit_text": null,            // optional (default "Get Access")
+      "consent": null,                // optional — null = auto-generated consent line
+      "success_message": null,        // optional — shown after submit if no redirect
+      "success_redirect": null,       // optional — default URL to send the lead to after opt-in
+      "success_redirect_map": null    // optional — { "<exact qualifier option>": "<url>" } to route
+                                      //   by qualifier (e.g. revenue tier → different VSL pages); overrides success_redirect
+    },
+    "whats_inside": {
+      "heading": "",                  // REQUIRED
+      "intro": [""],                  // optional — one or more intro paragraphs
+      "bullets": [                    // REQUIRED — what they get
+        { "icon": "", "lead": "", "text": "" }
+      ]
+    },
+    // OPTIONAL — delete this entire "founder" block to omit the founder bio section.
+    "founder": {
+      "heading": "",                  // REQUIRED if the block is present (e.g. "Hey, I'm Peter 👋")
+      "photo": "",                    // REQUIRED if present — founder photo URL
+      "photo_alt": null,              // optional
+      "intro": null,                  // optional — line before the bullets
+      "bullets": [""],                // REQUIRED — credibility bullets
+      "closing": null                 // optional — line after the bullets
+    }
+  },
+
+  // ── BOOK-A-CALL PAGE (only if "book-a-call" is in pages) ──
+  "book": {
+    "page_title": "",                 // REQUIRED
+    "meta_description": "",           // REQUIRED
+    "headline": "",                   // REQUIRED (e.g. "Schedule Your Strategy Session")
+    // Booking embed — provide EXACTLY ONE of the next three:
+    "calendly_url": "",               // full Calendly inline data-url, OR
+    "typeform_id": "",                // a Typeform id (embeds an application), OR
+    "ghl_calendar_url": ""            // a GoHighLevel calendar embed URL (e.g. https://api.leadconnectorhq.com/widget/booking/XXXX)
+  },
+
+  // ── CALL CONFIRMATION / THANK-YOU PAGE (only if "confirmation" is in pages) ──
+  "confirmation": {
+    "page_title": "",                 // REQUIRED
+    "meta_description": "",           // REQUIRED
+    "eyebrow": null,                  // optional (default "✓ Your Call Is Booked")
+    "headline": "",                   // REQUIRED — urgency H1
+    "headline_highlight": null,       // optional — substring of the headline to accent
+    "subheadline": null,              // optional
+    // Hero video — set EITHER "youtube" (URL or id) OR "wistia_id". One is required.
+    "youtube": null,                  // YouTube URL/id for the hero video (native embed)
+    "wistia_id": "",                  // OR a Wistia media id (leave "youtube" null to use this)
+    "cue": null,                      // optional (default "👇 Watch this before your call")
+    "reminder": null,                 // optional — plain-text confirm instruction (an email/@handle is auto-bolded)
+    "cta_text": null,                 // optional — adds a button to the reminder (usually omitted)
+    "cta_url": null,                  // optional — reminder button link
+    "steps_eyebrow": null,            // optional (default "Your Next Steps")
+    "steps_heading": null,            // optional (default "Do these 3 things to get the most out of your call")
+    "steps": [                        // REQUIRED — next-step cards. Each step can take an optional "visual":
+      //   "visual": { "type": "calendar", "event": "Strategy Call with [Brand]", "day": 10 }
+      //   "visual": { "type": "text", "sender": "[Brand]", "message": "…reply YES 😊", "reply": "YES" }
+      //   "visual": { "type": "thumb", "url": "https://img.youtube.com/vi/<id>/hqdefault.jpg", "caption": "…" }
+      // Optional "href": "#before-we-talk" makes the whole card a link (e.g. scroll to the video).
+      { "title": "", "text": "", "visual": null }
+    ],
+    // "Watch this before we talk" block — optional. Add a video and/or resource links.
+    "video": null,                    // optional — YouTube URL (shows beside the resources, 2-col)
+    "video_caption": null,            // optional — caption line shown under the video
+    "resources_heading": null,        // optional (default "Get a head start before our call")
+    "resources": [                    // optional — link cards (e.g. results / FAQ / go-deeper)
+      { "title": "", "text": "", "url": "" }
+    ]
+  },
+
+  // ── 404 / PAGE NOT FOUND (only if "404" is in pages) ──
+  "404": {
+    "page_title": "",                 // REQUIRED
+    "meta_description": "",           // REQUIRED
+    "headline": "",                   // REQUIRED — the not-found message
+    "subline": null,                  // optional (default provided)
+    "cta_text": null,                 // optional (default "Back to Home")
+    "cta_url": ""                     // REQUIRED — where the Back-to-Home button points
+  },
+
+  // ── LEGAL (only if "privacy" or "terms" is in pages) ──
+  "legal": {
+    "website_url": "",                // REQUIRED — bare domain (e.g. "acmecpa.com")
+    "support_email": "",              // REQUIRED — contact email shown in the policies
+    "governing_state": "",            // REQUIRED for terms (e.g. "Indiana")
+    "venue": "",                      // REQUIRED for terms (e.g. "Lake County, Indiana")
+    "arbitration_body": null,         // optional (default "American Arbitration Association (AAA)")
+    "last_updated": null,             // optional — null = today's date
+    "copyright_year": null            // optional — null = current year
+  },
+
+  // ── FOOTER (used on every page) ──
+  "footer": {
+    "address_line1": "",              // REQUIRED — street line
+    "address_line2": "",              // REQUIRED — city, state ZIP
+    "privacy_url": "",                // REQUIRED — where the Privacy link points
+    "terms_url": "",                  // REQUIRED — where the Terms link points
+    "social": {                       // optional — include only the platforms the client has
+      "instagram": null,
+      "youtube": null,
+      "linkedin": null,
+      "facebook": null
+    },
+    "disclaimer": null                // optional — null = auto-generated generic earnings disclaimer
+  }
+}

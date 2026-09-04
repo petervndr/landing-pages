@@ -1,0 +1,48 @@
+  <!-- ═══ HERO — dark card, thin frame, 2 columns ═══ -->
+  <section class="hero-wrap">
+    <div class="hero-card">
+      <div class="hero-inner">
+
+        <!-- LEFT: copy + CTA -->
+        <div class="hero-copy">
+          <span class="overline reveal" style="--cf-d:.05s">{{VSL_CALLOUT}}</span>
+          <h1 class="reveal" style="--cf-d:.14s">{{VSL_HEADLINE}}</h1>
+          <p class="sub reveal" style="--cf-d:.24s">{{VSL_SUBHEADLINE}}</p>
+          <div class="cta-block reveal" style="--cf-d:.34s">
+            <a class="cf-cta" href="{{VSL_CTA_HREF}}">
+              {{VSL_CTA_TEXT}}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT: VSL — Wistia embed -->
+        <div class="hero-media">
+          <div class="video-shell">
+            <iframe
+              src="https://fast.wistia.net/embed/iframe/{{WISTIA_ID}}?seo=false&amp;videoFoam=true"
+              title="{{VSL_HEADLINE}}"
+              allow="autoplay; fullscreen"
+              allowtransparency="true"
+              frameborder="0"
+              scrolling="no"
+              loading="eager"
+              fetchpriority="high"
+            ></iframe>
+          </div>
+        </div>
+
+        <!-- CTA duplicated for MOBILE only: renders below the video (hidden on desktop) -->
+        <div class="cta-block cta-mobile">
+          <a class="cf-cta" href="{{VSL_CTA_HREF}}">
+            {{VSL_CTA_TEXT}}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+      </div>
+
+<!--LOGO_STRIP-->
+
+    </div>
+  </section>

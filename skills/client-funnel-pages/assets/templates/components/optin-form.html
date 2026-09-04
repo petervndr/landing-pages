@@ -1,0 +1,33 @@
+          <div class="optin-card" id="optin-form">
+            <form id="optinVisibleForm" novalidate>
+              <div class="optin-field">
+                <label for="of-fname">First Name <span class="req">*</span></label>
+                <input id="of-fname" name="first_name" type="text" autocomplete="given-name" placeholder="Enter your first name" required>
+              </div>
+              <div class="optin-field">
+                <label for="of-email">Email <span class="req">*</span></label>
+                <input id="of-email" name="email" type="email" autocomplete="email" placeholder="your@email.com" required>
+              </div>
+              <div class="optin-field">
+                <label for="of-phone">Phone <span class="req">*</span></label>
+                <input id="of-phone" name="phone" type="tel" autocomplete="tel" placeholder="+1 (555) 000-0000" required>
+              </div>
+              <div class="optin-field">
+                <label for="of-qual">{{OPTIN_QUALIFIER_LABEL}} <span class="req">*</span></label>
+                <select id="of-qual" name="qualifier" required>
+                  <option value="" disabled selected>Select one…</option>
+<!--OPTIN_QUALIFIER_OPTIONS-->
+                </select>
+              </div>
+<!--OPTIN_QUALIFIER2-->
+              <button class="cf-cta" type="submit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                {{OPTIN_SUBMIT_TEXT}}
+              </button>
+              <p class="optin-consent">{{OPTIN_CONSENT}}</p>
+              <p class="optin-legal-links"><a href="{{PRIVACY_URL}}" target="_blank" rel="noopener">Privacy Policy</a> | <a href="{{TERMS_URL}}" target="_blank" rel="noopener">Terms of Service</a></p>
+            </form>
+            <div class="optin-success" hidden>
+              <p>{{OPTIN_SUCCESS_MESSAGE}}</p>
+            </div>
+          </div>

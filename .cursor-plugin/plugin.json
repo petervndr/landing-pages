@@ -1,0 +1,19 @@
+{
+  "name": "landing-pages",
+  "displayName": "Landing Pages",
+  "version": "1.2.0",
+  "description": "Build, QC, and paste client landing-page funnels into GoHighLevel: VSL, opt-in, booking, confirmation, and legal pages.",
+  "author": {
+    "name": "Peter Vander Wall"
+  },
+  "homepage": "https://github.com/petervndr/landing-pages",
+  "repository": "https://github.com/petervndr/landing-pages",
+  "license": "MIT",
+  "keywords": [
+    "landing-pages",
+    "funnels",
+    "vsl",
+    "opt-in",
+    "ghl"
+  ]
+}

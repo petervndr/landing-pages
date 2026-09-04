@@ -1,0 +1,26 @@
+<!--VSL_TYPEFORM_LOADER-->
+  <!-- Fade the booking section in as it scrolls into view (degrades gracefully without JS) -->
+  <script>
+    (function(){
+      var els=document.querySelectorAll('.io');
+      if(!('IntersectionObserver'in window)){els.forEach(function(e){e.classList.add('in')});return;}
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}});
+      },{threshold:.12});
+      els.forEach(function(e){io.observe(e)});
+    })();
+  </script>
+
+  <!-- Mobile: clone the logo set once so the marquee loops seamlessly (clones stay hidden on desktop via CSS) -->
+  <script>
+    (function(){
+      var track = document.querySelector('.logo-strip .logos');
+      if(!track){ return; }
+      Array.prototype.slice.call(track.children).forEach(function(node){
+        var c = node.cloneNode(true);
+        c.classList.add('clone');
+        c.setAttribute('aria-hidden','true');
+        track.appendChild(c);
+      });
+    })();
+  </script>

@@ -1,0 +1,162 @@
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       OPT-IN FORM BRIDGE
+       The visible form above is on-brand HTML. On submit it copies the values
+       into a HIDDEN, native GoHighLevel form on this page and fires THAT form —
+       so GHL captures the lead with full attribution (Hyros, click data, ad
+       tracking) and your automations run.
+
+       SETUP in GHL:
+         1. Add a native GHL Form element (Full Name, Phone, Email, + your
+            qualifier field) in its own row/column.
+         2. Give that ROW the custom class  optin-hidden  (NO leading dot).
+         3. Turn the row's visibility OFF (it stays in the DOM, just hidden).
+         4. Set CONFIG.map.qualifier below to your GHL "Revenue"/qualifier field's
+            name (GHL custom fields use a hashed id — inspect the hidden form to
+            find it). The build sets this from optin.form.ghl_qualifier_field.
+
+       GHL renders inline forms as a <div> (no <form> tag), so the bridge targets
+       the form CONTAINER and clicks its Submit button.
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <script>
+  (function () {
+    // ── CONFIG — wire these to your hidden GHL form ─────────────────────────
+    var CONFIG = {
+      // The hidden GHL form's CONTAINER. "[class*=cform-]" matches any GHL form;
+      // the "optin-hidden" class scopes it if you have more than one form.
+      hiddenForm: '.optin-hidden, [class*="cform-"]',
+      map: {
+        firstName: 'input[name="first_name"]',
+        email:     'input[name="email"]',
+        phone:     'input[name="phone"]',
+        // Your GHL "Revenue"/qualifier custom-field name (hashed id, per form).
+        qualifier: 'input[name="{{OPTIN_GHL_QUALIFIER}}"]'
+      },
+      // null = show the inline success message; or a URL to redirect to (the DEFAULT).
+      successRedirect: <!--OPTIN_REDIRECT-->,
+      // Optional per-qualifier routing: { "<exact option value>": "<url>" }. When the
+      // selected qualifier matches a key, that URL wins over successRedirect (e.g. route
+      // by revenue tier to different VSL pages). Empty {} = always use successRedirect.
+      redirectMap: <!--OPTIN_REDIRECT_MAP-->
+    };
+
+    var vf = document.getElementById('optinVisibleForm');
+    if (!vf) return;
+    var card = vf.closest('.optin-card');
+
+    // Green "filled" state as each field is completed
+    Array.prototype.forEach.call(vf.querySelectorAll('input, select'), function (el) {
+      var wrap = el.closest('.optin-field');
+      function upd() { if (wrap) wrap.classList.toggle('is-valid', el.value.trim() !== '' && el.checkValidity()); }
+      el.addEventListener('input', upd); el.addEventListener('change', upd); el.addEventListener('blur', upd);
+    });
+
+    // Set a value so framework-based GHL forms (Vue) actually register it
+    function setNativeValue(el, value) {
+      var proto = el.tagName === 'SELECT' ? window.HTMLSelectElement
+                : el.tagName === 'TEXTAREA' ? window.HTMLTextAreaElement : window.HTMLInputElement;
+      var d = Object.getOwnPropertyDescriptor(proto.prototype, 'value');
+      if (d && d.set) { d.set.call(el, value); } else { el.value = value; }
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      el.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    function fill(scope, selector, value) {
+      if (value == null || value === '') return;
+      var el = scope.querySelector(selector);
+      if (el) setNativeValue(el, value);
+    }
+
+    function showSuccess() {
+      if (card) {
+        vf.setAttribute('hidden', '');
+        var ok = card.querySelector('.optin-success');
+        if (ok) ok.removeAttribute('hidden');
+      }
+    }
+
+    // The lead is saved by GHL's own /forms/submit request, which only fires after GHL
+    // runs reCAPTCHA — so it can take >1s. If we redirect on a blind timer, the page
+    // navigates while that request is still in flight and the browser ABORTS it, so the
+    // contact is never created even though the redirect "worked" (especially bad when the
+    // redirect URL itself errors and navigates instantly). We watch for the submit request
+    // to actually resolve, THEN redirect, with a hard fallback so no visitor is stranded.
+    function armRedirectAfterSubmit(dest) {
+      var fired = false;
+      function go(delay) {
+        if (fired) return; fired = true;
+        setTimeout(function () { window.location.href = dest; }, delay || 0);
+      }
+      var isSubmit = function (u) { return /forms\/submit/i.test(String(u)); };
+      var oFetch = window.fetch;
+      window.fetch = function (u) {
+        var p = oFetch.apply(this, arguments);
+        if (isSubmit(u)) { p.then(function () { go(400); }, function () { go(400); }); }
+        return p;
+      };
+      var oOpen = window.XMLHttpRequest.prototype.open, oSend = window.XMLHttpRequest.prototype.send;
+      window.XMLHttpRequest.prototype.open = function (m, u) { this.__u = u; return oOpen.apply(this, arguments); };
+      window.XMLHttpRequest.prototype.send = function () {
+        if (isSubmit(this.__u)) this.addEventListener('loadend', function () { go(400); });
+        return oSend.apply(this, arguments);
+      };
+      setTimeout(function () { go(0); }, 5000); // fallback — never strand the visitor
+    }
+
+    vf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!vf.checkValidity()) { vf.reportValidity(); return; }
+
+      // Destination: a per-qualifier override (e.g. revenue routing) wins over the default.
+      var qual = (vf.elements.qualifier && vf.elements.qualifier.value) || '';
+      var dest = (CONFIG.redirectMap && CONFIG.redirectMap[qual]) || CONFIG.successRedirect;
+
+      var hidden = document.querySelector(CONFIG.hiddenForm);
+      if (!hidden) {
+        console.error('[opt-in] Hidden GHL form not found for "' + CONFIG.hiddenForm +
+          '". Lead NOT captured — check the form is on the page and CONFIG.hiddenForm.');
+        if (dest) { window.location.href = dest; } else { showSuccess(); }
+        return;
+      }
+
+      fill(hidden, CONFIG.map.firstName, vf.elements.first_name.value.trim());
+      fill(hidden, CONFIG.map.email, vf.elements.email.value.trim());
+      fill(hidden, CONFIG.map.phone, vf.elements.phone.value.trim());
+      fill(hidden, CONFIG.map.qualifier, vf.elements.qualifier.value);
+
+      // arm the redirect watcher BEFORE triggering GHL's submit so we catch its request
+      if (dest) armRedirectAfterSubmit(dest);
+
+      // let the GHL form register the values, then fire its submit button
+      setTimeout(function () {
+        var btn = hidden.querySelector('button[type="submit"], [type="submit"], button');
+        if (btn) { btn.click(); } else if (hidden.requestSubmit) { hidden.requestSubmit(); }
+        if (!dest) showSuccess();
+      }, 150);
+    });
+  })();
+  </script>
+
+  <!-- Mobile: clone the trust-band logos once so the marquee loops seamlessly -->
+  <script>
+  (function () {
+    var track = document.querySelector('.trust-band .logos');
+    if (!track) return;
+    Array.prototype.slice.call(track.children).forEach(function (node) {
+      var c = node.cloneNode(true);
+      c.classList.add('clone');
+      c.setAttribute('aria-hidden', 'true');
+      track.appendChild(c);
+    });
+  })();
+  </script>
+
+  <!-- Fade sections in as they scroll into view (degrades gracefully without JS) -->
+  <script>
+  (function () {
+    var els = document.querySelectorAll('.io');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } });
+    }, { threshold: .12 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+  </script>

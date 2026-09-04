@@ -1,0 +1,571 @@
+/* ═══════════ BRAND TOKENS — rendered per client from the brand brief ═══════════ */
+  /* ⚠ Every custom property is namespaced --cf-* ON PURPOSE. GoHighLevel injects its own
+     :root tokens (e.g. --black:#000, --dark) that OVERRIDE identically-named pasted vars and
+     silently break dark sections. Never use bare generic names (--black, --card, --page, --font);
+     keep the --cf- prefix on all variables. */
+  :root{
+    --cf-page:{{PAGE_BG}};          /* page background + light sections */
+    --cf-card:{{CARD_BG}};          /* hero card surface (dark by default; white in light theme) */
+    --cf-bg-elev:{{BG_ELEV}};       /* media wells on the hero card */
+    --cf-ink:{{INK}};           /* text ON the hero card */
+    --cf-ink-soft:{{INK_SOFT}};
+    --cf-accent:{{ACCENT}};        /* brand accent */
+    --cf-accent-bright:{{ACCENT_BRIGHT}};
+    --cf-line:{{HAIRLINE}};   /* hairlines on the hero card */
+    --cf-light-bg:{{PAGE_BG}};      /* light sections + footer */
+    --cf-light-ink:#17171d;     /* text on light backgrounds */
+    --cf-light-muted:#5c5c66;
+    --cf-font:{{FONT_STACK}};
+    --cf-head-font:{{HEAD_FONT_STACK}};   /* headline/display font — falls back to --cf-font */
+    --cf-maxw:1080px;
+    --cf-radius:16px;       /* outer cards / sections */
+    --cf-radius-md:12px;    /* panels & media nested inside a card (tighter — concentric) */
+    --cf-radius-sm:10px;    /* buttons, inputs, chips */
+    --cf-logo:url("{{LOGO_URL}}");
+    --cf-logo-white:url("{{LOGO_WHITE_URL}}");
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cf-page);
+    color:var(--cf-light-ink);
+    font-family:var(--cf-font);
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  /* Headings use the display/headline font (== body font unless headline_font is set) */
+  h1,h2,h3{font-family:var(--cf-head-font)}
+  /* GHL paints its own white section layer (.bgCover) — force it to match the page */
+  .bgCover{background-color:var(--cf-page)!important}
+  .wrap{max-width:var(--cf-maxw);margin:0 auto;padding:0 24px}
+
+  /* ── top logo bar (shared) ── */
+  .topbar{background:var(--cf-page);padding:20px 24px 6px;text-align:center}
+  .brand-logo{width:min({{LOGO_W}},86vw);aspect-ratio:{{LOGO_ASPECT}};background:var(--cf-logo) center/contain no-repeat;margin:0 auto}
+
+  /* ════════ HERO — VSL page only ════════ */
+  .hero-wrap{background:var(--cf-page);padding:20px clamp(14px,1.5vw,20px) clamp(24px,3vw,36px)}
+  .hero-card{
+    background:{{HERO_BG}};color:var(--cf-ink);
+    border-radius:{{HERO_RADIUS}};
+    padding:clamp(40px,4.5vw,68px) clamp(26px,3vw,56px);
+    overflow:hidden;box-shadow:{{CARD_SHADOW}};
+  }
+  .hero-inner{
+    display:grid;grid-template-columns:1fr 1.1fr;
+    gap:clamp(32px,3.5vw,56px);align-items:center;
+    max-width:1440px;margin:0 auto;
+  }
+  .hero-copy{text-align:left}
+  .overline{
+    display:inline-block;font-weight:600;font-size:.8rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--cf-ink-soft);
+  }
+  /* opt-in callout: a full-sentence pain hook reads better in sentence case than an all-caps label */
+  .optin-inner .overline{text-transform:none;letter-spacing:0;font-size:clamp(.98rem,1.5vw,1.1rem);font-weight:600;line-height:1.4;color:var(--cf-ink);opacity:.94}
+  /* opt-in hero trust cluster — small label + proof logos, directly under the CTA */
+  .optin-hero-trust{margin-top:clamp(18px,2.6vw,26px)}
+  .oht-label{display:block;font-size:.74rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--cf-ink-soft);opacity:.85;margin-bottom:11px}
+  .oht-logos{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+  .oht-logos img{height:clamp(20px,2.4vw,26px);width:auto;max-width:150px;object-fit:contain;opacity:.9}
+  /* hero headline — scoped so it never bleeds onto legal/booking headings; forced bold for GHL */
+  .hero-copy h1{
+    font-family:var(--cf-head-font)!important;font-weight:700!important;
+    font-size:clamp(2rem,3.4vw,3.15rem);line-height:1.1;letter-spacing:-.02em;
+    margin:18px 0 0;color:var(--cf-ink);
+  }
+  .sub{
+    font-size:clamp(0.95rem,1.3vw,1.05rem);line-height:1.6;color:var(--cf-ink-soft);
+    max-width:520px;margin:22px 0 0;font-weight:400;
+  }
+  .video-shell{
+    max-width:100%;position:relative;aspect-ratio:16/9;border-radius:var(--cf-radius-md);overflow:hidden;
+    border:1px solid var(--cf-line);background:var(--cf-bg-elev);
+  }
+  .video-shell iframe{display:block;position:absolute;inset:0;width:100%;height:100%;border:0}
+  .cta-block{text-align:left;margin:30px 0 0}
+  .cf-cta{
+    display:inline-flex;align-items:center;gap:11px;
+    font-family:inherit;font-weight:600;font-size:1.08rem;letter-spacing:.01em;
+    /* class renamed from .btn to .cf-cta so GHL.s high-specificity ".hl-app .btn" cannot override it; !important also guards GHL.s a/button tag resets */
+    color:#ffffff!important;background:var(--cf-accent)!important;cursor:pointer;
+    padding:18px 38px!important;border:none!important;border-radius:var(--cf-radius-sm)!important;text-decoration:none!important;
+    -webkit-appearance:none;appearance:none;
+    box-shadow:0 12px 30px -12px rgba({{ACCENT_RGB}},.7);
+    transition:transform .18s ease,background .18s ease,box-shadow .18s ease;
+  }
+  .cf-cta:hover{transform:translateY(-2px);background:var(--cf-accent-bright)!important;box-shadow:0 16px 34px -12px rgba({{ACCENT_RGB}},.8)}
+  .cf-cta svg{width:17px;height:17px}
+
+  /* logo trust strip — VSL page */
+  .logo-strip{max-width:1440px;margin:clamp(40px,5vw,60px) auto 0;padding-top:clamp(30px,4vw,46px);border-top:1px solid var(--cf-line)}
+  .logo-strip .logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(22px,2.5vw,32px) clamp(30px,4vw,54px)}
+  .logo-strip img{height:{{TRUST_H}};width:auto;max-width:{{TRUST_MAXW}};object-fit:contain;opacity:.72;transition:opacity .2s ease}
+  .logo-strip img:hover{opacity:1}
+  .logo-strip .logos .clone{display:none}
+  .cta-mobile{display:none}
+  @keyframes logo-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ════════ TYPEFORM APPLICATION SECTION — VSL page ════════ */
+  .book{background:var(--cf-light-bg);color:var(--cf-light-ink);padding:40px 0 52px;scroll-margin-top:0}
+  .book-head{text-align:center;max-width:640px;margin:0 auto 26px}
+  .book-head h2{font-weight:700!important;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.14;letter-spacing:-.01em;color:var(--cf-light-ink)}
+  .form-shell{margin:0 auto}
+  .form-shell [data-tf-live]{width:100%;min-height:560px;height:62vh;height:62dvh;max-height:780px}
+
+  /* ════════ BOOK-A-CALL PAGE — headline + Calendly ════════ */
+  .cal-page{margin:0 auto;padding:clamp(30px,5vw,56px) 16px clamp(44px,6vw,68px);text-align:center}
+  .cal-page h1{font-family:var(--cf-head-font)!important;font-weight:700!important;font-size:clamp(1.9rem,4vw,3rem);line-height:1.12;letter-spacing:-.02em;color:var(--cf-light-ink);margin:0 0 clamp(26px,4vw,40px)}
+  .calendly-inline-widget{min-width:320px;background:var(--cf-page)}
+  .cal-sub{font-size:clamp(1rem,1.7vw,1.2rem);line-height:1.55;color:var(--cf-light-muted);max-width:640px;margin:-14px auto clamp(28px,4vw,40px)}
+  .cal-embed{margin-top:clamp(8px,1.5vw,16px)}
+
+  /* ════════ LEGAL PAGES — privacy / terms ════════ */
+  .legal{max-width:800px;margin:0 auto;padding:clamp(24px,4vw,44px) 24px clamp(48px,6vw,72px)}
+  .legal h1{font-weight:700!important;font-size:clamp(2rem,4.2vw,2.9rem);letter-spacing:-.02em;line-height:1.1;margin:0 0 10px;color:var(--cf-light-ink)}
+  .legal .meta{color:var(--cf-light-muted);font-size:.92rem;line-height:1.5;margin:0 0 30px}
+  .legal h2{font-weight:600!important;font-size:1.32rem;letter-spacing:-.01em;margin:34px 0 10px;color:var(--cf-light-ink)}
+  .legal h3{font-weight:600!important;font-size:1.04rem;margin:20px 0 6px;color:var(--cf-light-ink)}
+  .legal p{margin:0 0 14px;line-height:1.72;color:var(--cf-light-ink)}
+  .legal ul{margin:0 0 16px;padding-left:22px}
+  .legal li{margin:0 0 9px;line-height:1.6}
+  .legal a{color:var(--cf-accent);text-decoration:none;font-weight:500}
+  .legal a:hover{text-decoration:underline}
+  .legal strong{font-weight:600}
+
+  /* ════════ FOOTER (shared, light) ════════ */
+  footer{background:var(--cf-light-bg);color:var(--cf-light-ink);padding:58px 0 40px}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:34px 48px;flex-wrap:wrap;padding-bottom:32px}
+  .footer-brand{display:flex;flex-direction:column;gap:16px;max-width:340px}
+  .footer-logo{width:min({{FOOTER_LOGO_W}},64vw);aspect-ratio:{{LOGO_ASPECT}};background:var(--cf-logo) center/contain no-repeat}
+  .footer-addr{font-style:normal;font-size:.92rem;line-height:1.55;color:var(--cf-light-muted)}
+  .footer-nav{display:flex;flex-direction:column;gap:12px}
+  .footer-nav a{color:var(--cf-light-ink);text-decoration:none;font-size:.94rem;font-weight:500;transition:color .15s ease}
+  .footer-nav a:hover{color:var(--cf-accent)}
+  .footer-social{display:flex;gap:12px;align-items:center}
+  .footer-social a{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;color:var(--cf-light-ink);border:1px solid rgba(23,23,29,.16);border-radius:var(--cf-radius-sm);transition:color .15s ease,background .15s ease,border-color .15s ease}
+  .footer-social a:hover{color:#fff;background:var(--cf-accent);border-color:var(--cf-accent)}
+  .footer-social svg{width:18px;height:18px}
+  .footer-disclaimer{max-width:920px;margin:0 auto 6px;font-size:.72rem;line-height:1.6;color:#6f6f78;text-align:left}
+  .footer-bottom{border-top:1px solid rgba(23,23,29,.1);padding-top:22px;text-align:center;font-size:.82rem;color:var(--cf-light-muted)}
+
+  /* ════════ MOTION ════════ */
+  .reveal{opacity:0;transform:translateY(20px);animation:up .85s cubic-bezier(.16,1,.3,1) forwards;animation-delay:var(--cf-d,0s)}
+  @keyframes up{to{opacity:1;transform:none}}
+  .js .io{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+  .js .io.in{opacity:1;transform:none}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal,.io{opacity:1!important;transform:none!important}
+    html{scroll-behavior:auto}
+    .logo-strip{overflow:visible!important;-webkit-mask-image:none!important;mask-image:none!important}
+    .logo-strip .logos{flex-wrap:wrap!important;width:auto!important;gap:clamp(22px,2.5vw,32px) clamp(30px,4vw,54px)!important}
+    .logo-strip .logos .clone{display:none!important}
+    .logo-strip .logos img{margin:0!important}
+  }
+
+  /* ════════ RESPONSIVE ════════ */
+  @media (max-width:860px){
+    .hero-inner{grid-template-columns:1fr;gap:0}
+    .hero-media{margin-top:32px}
+    .sub{max-width:560px}
+  }
+  @media (max-width:600px){
+    body{font-size:17px}
+    .hero-wrap{padding:0 0 14px;width:100vw;margin-left:calc(50% - 50vw)}
+    .hero-card{padding:16px 20px 24px}
+    .topbar{padding:4px 18px 0}
+    .brand-logo{width:min({{LOGO_W_M}},76vw)}
+    /* dark-hero pages: on mobile the header goes dark + white logo so it merges into the hero
+       (desktop header stays light). filter whitens the wordmark even without a separate white asset. */
+    .topbar--dark{background:var(--cf-card);padding-bottom:10px}
+    .topbar--dark .brand-logo{background-image:var(--cf-logo-white);filter:brightness(0) invert(1)}
+    /* "before we talk" goes full-bleed (no light frame on the edges) */
+    .resources .wrap{padding:0}
+    /* square the full-bleed section backgrounds on mobile (inner elements stay rounded) */
+    .hero-card,.resources .res-card{border-radius:0}
+    .hero-copy h1{margin-top:22px;line-height:1.06}
+    .sub{margin-top:17px}
+    .hero-media{margin-top:21px}
+    .cf-cta{width:100%;justify-content:center;padding:17px 24px}
+    .book{padding:60px 0 68px}
+    .hero-copy .cta-block{display:none}
+    .cta-mobile{display:block;margin-top:22px}
+    .logo-strip{overflow:hidden;margin-top:16px;padding-top:16px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%)}
+    .logo-strip .logos{flex-wrap:nowrap;justify-content:flex-start;width:max-content;gap:0;animation:logo-marquee 22s linear infinite}
+    .logo-strip .logos img{margin:0 18px;flex:0 0 auto}
+    .logo-strip .logos .clone{display:block}
+    .calendly-inline-widget{height:1100px!important}
+    /* tighter vertical rhythm on mobile for the confirmation next-steps section */
+    .steps{padding:22px 0 clamp(36px,9vw,52px)}
+    .steps-head{margin-bottom:22px}
+  }
+  @media (max-width:720px){
+    .footer-top{flex-direction:column;align-items:center;text-align:center;gap:28px}
+    .footer-brand{align-items:center;max-width:none}
+    .footer-nav{align-items:center}
+    .footer-social{justify-content:center}
+  }
+
+  /* Typeform application launch UI needs a fixed mobile canvas. Keep desktop's
+     responsive 62dvh sizing unchanged; only full application embeds use this rule. */
+  @media screen and (max-width:767px){
+    .book--typeform,
+    .book--typeform .wrap{
+      min-height:0!important;
+      overflow:visible!important;
+    }
+    .typeform-shell{
+      position:relative!important;
+      width:100%!important;
+      height:560px!important;
+      min-height:560px!important;
+      max-height:none!important;
+      margin:0!important;
+      padding:0!important;
+      overflow:visible!important;
+      transform:none!important;
+      clip-path:none!important;
+      -webkit-mask-image:none!important;
+      mask-image:none!important;
+    }
+    .typeform-shell::before,
+    .typeform-shell::after{
+      content:none!important;
+      display:none!important;
+    }
+    .typeform-shell > [data-tf-live],
+    .typeform-shell iframe{
+      display:block!important;
+      width:100%!important;
+      height:560px!important;
+      min-height:560px!important;
+      max-height:none!important;
+      border:0!important;
+    }
+  }
+
+  /* ════════ OPT-IN PAGE — hero form card, trust band, what's-inside, founder ════════ */
+  /* The opt-in hero reuses .hero-wrap/.hero-card; the right column holds the form card. */
+  .optin-inner{grid-template-columns:1.05fr .95fr;align-items:start}
+  /* accent-highlighted phrase — "marker" gradient swiped across the lower half of
+     the text (matches the GHL <u> highlight: gradient bottom, sharp, no padding) */
+  .hl{
+    color:{{HL_COLOR}};
+    background-image:{{HL_BG}};
+    background-size:100% 50%;
+    background-position:50% 100%;
+    background-repeat:no-repeat;
+    -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  }
+  .fineprint{font-size:.76rem;line-height:1.55;color:var(--cf-ink-soft);opacity:.78;max-width:520px;margin:18px 0 0}
+
+  .optin-card{background:#fff;color:var(--cf-light-ink);border-radius:var(--cf-radius-md);padding:clamp(24px,2.6vw,36px);box-shadow:0 28px 60px -28px rgba(0,0,0,.55)}
+  .optin-typeform{background:#fff;border-radius:var(--cf-radius-md);overflow:hidden;border:1px solid rgba(0,0,0,.08);box-shadow:0 20px 48px -28px rgba(0,0,0,.28)}
+  .optin-typeform [data-tf-live]{width:100%;min-height:520px;height:58vh;max-height:680px}
+  .optin-field{margin:0 0 14px}
+  .optin-card label{display:block;font-weight:600;font-size:.84rem;color:var(--cf-light-ink);margin:0 0 6px}
+  .optin-card .req{color:var(--cf-accent)}
+  .optin-card input,.optin-card select{width:100%;padding:13px 14px;border:1px solid #d6d6de;border-radius:var(--cf-radius-sm);font-family:inherit;font-size:1rem;color:var(--cf-light-ink);background:#fff;transition:border-color .15s ease,box-shadow .15s ease,background .15s ease}
+  .optin-card input::placeholder{color:#9a9aa6}
+  .optin-card input:focus,.optin-card select:focus{outline:none;border-color:var(--cf-accent);box-shadow:0 0 0 3px rgba({{ACCENT_RGB}},.16)}
+  /* green "filled" state as the visitor completes each field */
+  .optin-field.is-valid input,.optin-field.is-valid select{border-color:#27a667;background:#f4fbf6}
+  .optin-card .cf-cta{width:100%;justify-content:center;margin-top:8px}
+  .optin-consent{font-size:.7rem;line-height:1.5;color:var(--cf-light-muted);margin:14px 0 0;text-align:center}
+  .optin-legal-links{font-size:.78rem;margin:12px 0 0;text-align:center;color:var(--cf-light-muted)}
+  .optin-legal-links a{color:var(--cf-light-ink);text-decoration:underline}
+  .optin-success{text-align:center;padding:34px 12px}
+  .optin-success p{font-size:1.12rem;font-weight:500;line-height:1.5;color:var(--cf-light-ink)}
+
+  /* trust band (light) */
+  .trust-band{background:var(--cf-page);padding:clamp(34px,5vw,54px) 0;text-align:center}
+  .trust-band h2{font-weight:700;font-size:clamp(1.15rem,2.3vw,1.55rem);letter-spacing:-.01em;color:var(--cf-light-ink);margin:0 0 clamp(22px,3vw,32px)}
+  .trust-band .logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(20px,3vw,46px)}
+  .trust-band img{height:clamp(22px,2.4vw,30px);width:auto;max-width:160px;object-fit:contain;opacity:.68;transition:opacity .2s ease}
+  .trust-band img:hover{opacity:1}
+  .trust-band .clone{display:none}
+
+  /* what's inside (light) — copy split top/bottom so the mockup sits between them
+     on mobile (heading+intro → image → bullets+CTA), matching the live page. */
+  /* ── COMPARE: "Your CPA" vs brand, we-vs-them card stack ── */
+  .compare{background:var(--cf-page);padding:clamp(36px,5vw,68px) 0}
+  .compare h2{text-align:center;font-weight:700!important;font-size:clamp(1.6rem,3.2vw,2.3rem);letter-spacing:-.01em;color:var(--cf-light-ink);margin:0 0 clamp(26px,3.5vw,40px)}
+  .compare-stack{display:flex;flex-direction:column;gap:clamp(12px,1.5vw,18px);max-width:880px;margin:0 auto}
+  .cmp-card{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--cf-line);border:1px solid var(--cf-line);border-radius:var(--cf-radius-md);overflow:hidden}
+  .cmp-side{padding:clamp(18px,2.3vw,28px)}
+  .cmp-cpa{background:#f4f1ed}
+  .cmp-us{background:#fff;box-shadow:inset 4px 0 0 var(--cf-accent)}
+  .cmp-label{display:block;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 9px}
+  .cmp-cpa .cmp-label{color:var(--cf-light-muted)}
+  .cmp-us .cmp-label{color:var(--cf-accent)}
+  .cmp-side p{margin:0;font-size:1rem;line-height:1.55;color:var(--cf-light-ink)}
+  .cmp-cpa p{color:var(--cf-light-muted)}
+  .compare-cta{text-align:center;margin-top:clamp(28px,4vw,40px)}
+  @media (max-width:640px){ .cmp-card{grid-template-columns:1fr} .cmp-us{box-shadow:inset 0 4px 0 var(--cf-accent)} }
+
+  .whats-inside{background:var(--cf-page);padding:clamp(36px,5vw,68px) 0}
+  .wi-inner{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(34px,5vw,60px);
+    grid-template-areas:"top media" "bot media";align-items:start;max-width:var(--cf-maxw);margin:0 auto}
+  .whats-inside.wi-nomedia .wi-inner{grid-template-columns:1fr;grid-template-areas:"top" "bot";max-width:760px}
+  .wi-top{grid-area:top}
+  .wi-bot{grid-area:bot}
+  .wi-media{grid-area:media;align-self:center;background:#ececf0;border-radius:var(--cf-radius-md);padding:clamp(22px,3vw,40px);display:flex;align-items:center;justify-content:center}
+  .wi-media img{width:100%;max-width:380px;height:auto;border-radius:var(--cf-radius-md);box-shadow:0 24px 50px -24px rgba(0,0,0,.5)}
+  /* lead-magnet visual as a clickable training thumbnail (play overlay → scrolls to the form) */
+  .lm-video{position:relative;display:block;cursor:pointer;line-height:0}
+  .lm-video:hover .vid-play{transform:translate(-50%,-50%) scale(1.08);background:var(--cf-accent-bright)}
+  .wi-media .lm-video{width:100%;max-width:380px;margin:0 auto}
+  .optin-hero-img .lm-video{width:62%;max-width:230px}
+  .optin-hero-img .lm-video img{width:100%;max-width:100%}
+  /* lead-magnet visual as a looping muted video (GIF replacement, ~20× lighter) */
+  .lm-media{display:block;width:100%;height:auto;border-radius:var(--cf-radius-md);box-shadow:0 24px 50px -24px rgba(0,0,0,.5)}
+  .wi-media>.lm-media{max-width:380px}
+  .optin-hero-img>.lm-media{width:62%;max-width:230px}
+  .whats-inside h2{font-weight:700;font-size:clamp(1.6rem,3.2vw,2.3rem);letter-spacing:-.01em;line-height:1.14;color:var(--cf-light-ink);margin:0 0 16px}
+  .whats-inside p{color:var(--cf-light-ink);margin:0 0 12px}
+  .wi-list{list-style:none;margin:18px 0 24px;padding:0}
+  .wi-list li{margin:0 0 14px;line-height:1.55;color:var(--cf-light-ink)}
+  .wi-ico{margin-right:7px}
+
+  /* founder (light) — heading pulls above the photo on mobile (heading → photo → bio). */
+  .founder{background:var(--cf-page);padding:clamp(16px,2vw,32px) 0 clamp(44px,6vw,76px)}
+  .founder-inner{display:grid;grid-template-columns:1fr 1.12fr;column-gap:clamp(34px,5vw,60px);
+    grid-template-areas:"photo head" "photo body" "photo ."; grid-template-rows:auto auto 1fr;
+    align-items:start;max-width:var(--cf-maxw);margin:0 auto}
+  .founder-photo{grid-area:photo;align-self:center}
+  .founder-head{grid-area:head}
+  .founder-body{grid-area:body}
+  .founder-photo img{width:100%;height:auto;border-radius:var(--cf-radius-md);object-fit:cover;display:block}
+  .founder h2{font-weight:700;font-size:clamp(1.6rem,3.2vw,2.3rem);letter-spacing:-.01em;color:var(--cf-light-ink);margin:0 0 14px}
+  .founder p{color:var(--cf-light-ink);margin:0 0 12px}
+  .founder-list{list-style:none;margin:14px 0 22px;padding:0}
+  .founder-list li{position:relative;padding-left:30px;margin:0 0 12px;line-height:1.5;color:var(--cf-light-ink)}
+  .founder-list li::before{content:"👉";position:absolute;left:0;top:0}
+
+  /* lead-magnet mockup shown inside the opt-in hero on mobile only */
+  .optin-hero-img{display:none}
+
+  /* ── opt-in responsive ── */
+  @media (max-width:860px){
+    .optin-inner{grid-template-columns:1fr}        /* hero stacks: copy → form */
+    .optin-media{margin-top:24px}
+    .optin-hero-img{display:flex;justify-content:center;margin:22px 0 4px}
+    .optin-hero-img img{width:62%;max-width:230px;height:auto;border-radius:var(--cf-radius-md);box-shadow:0 22px 44px -22px rgba(0,0,0,.6)}
+    .wi-inner{grid-template-columns:1fr;grid-template-areas:"top" "media" "bot";row-gap:24px}
+    .founder-inner{grid-template-columns:1fr;grid-template-areas:"head" "photo" "body";grid-template-rows:none;row-gap:20px}
+  }
+  @media (max-width:600px){
+    /* keep the opt-in CTA visible on mobile (override the VSL hero's hide rule) */
+    .optin-inner .hero-copy .cta-block{display:block}
+    .trust-band{overflow:hidden}
+    .trust-band .logos{flex-wrap:nowrap;justify-content:flex-start;width:max-content;gap:0;animation:logo-marquee 24s linear infinite;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+    .trust-band .logos img{margin:0 20px;flex:0 0 auto}
+    .trust-band .clone{display:block}
+  }
+
+  /* ════════ CALL CONFIRMATION (thank-you) PAGE ════════ */
+  /* hero reuses .hero-wrap/.hero-card; content is centered */
+  .confirm-inner{max-width:760px;margin:0 auto;text-align:center}
+  .confirm-badge{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#34d399;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.32);padding:7px 15px;border-radius:999px}
+  .confirm-inner h1{font-family:var(--cf-head-font)!important;font-weight:700!important;font-size:clamp(1.8rem,3.9vw,2.9rem);line-height:1.12;letter-spacing:-.02em;color:var(--cf-ink);margin:18px 0 0}
+  .confirm-inner .sub{margin:16px auto 0;max-width:600px}
+  .confirm-cue{display:block;margin:14px auto 0;color:var(--cf-accent-bright);font-weight:600}
+  .confirm-video{max-width:720px;margin:clamp(22px,3vw,32px) auto 0}
+  .confirm-reminder{display:flex;align-items:center;justify-content:center;gap:14px 22px;flex-wrap:wrap;background:var(--cf-accent);color:#fff;padding:18px 24px;border-radius:var(--cf-radius-md);margin:clamp(22px,3vw,30px) auto 0;max-width:720px;text-align:center}
+  .confirm-reminder p{font-weight:500;font-size:1rem;line-height:1.45;margin:0;flex:1 1 280px}
+  .confirm-reminder strong{font-weight:700;white-space:nowrap}
+  .confirm-reminder .cf-cta{background:#fff;color:var(--cf-accent);box-shadow:none;flex:0 0 auto}
+  .confirm-reminder .cf-cta:hover{background:#efeaff;color:var(--cf-accent);transform:translateY(-2px)}
+
+  /* the 3 next-step cards (light) */
+  .steps{background:var(--cf-page);padding:clamp(40px,6vw,72px) 0}
+  .steps-head{text-align:center;max-width:680px;margin:0 auto clamp(28px,4vw,42px)}
+  .steps-eyebrow{display:inline-block;font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cf-accent);margin-bottom:12px}
+  .steps-head h2{font-weight:700!important;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.14;letter-spacing:-.01em;color:var(--cf-light-ink)}
+  .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,26px);max-width:var(--cf-maxw);margin:0 auto}
+  .step-card{background:#fff;border:1px solid rgba(23,23,29,.08);border-radius:var(--cf-radius);padding:clamp(22px,2.4vw,30px);box-shadow:0 16px 44px -30px rgba(0,0,0,.35)}
+  .step-num{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:var(--cf-radius-sm);background:var(--cf-accent);color:#fff;font-weight:700;font-size:1.05rem}
+  .step-card h3{font-weight:600;font-size:1.14rem;color:var(--cf-light-ink);margin:15px 0 8px}
+  .step-card p{color:var(--cf-light-muted);font-size:.96rem;line-height:1.55;margin:0}
+  .step-card.is-link{display:block;text-decoration:none;cursor:pointer;transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease}
+  .step-card.is-link:hover{border-color:var(--cf-accent);transform:translateY(-3px);box-shadow:0 22px 50px -28px rgba(0,0,0,.45)}
+
+  /* step-card visuals (calendar / text-message / video-thumbnail mockups) */
+  .step-visual{background:{{VISUAL_BG}};border-radius:var(--cf-radius-md);padding:15px;margin-bottom:20px;height:176px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+  /* calendar */
+  .cal-mock{font-size:.64rem;color:var(--cf-ink-soft)}
+  .cal-bar{display:flex;align-items:center;margin-bottom:9px}
+  .cal-bar i{width:7px;height:7px;border-radius:50%;background:#4a4a52;margin-right:5px}
+  .cal-bar i.r{background:#ff5f57}
+  .cal-bar i.y{background:#febc2e}
+  .cal-bar i.g{background:#28c840}
+  .cal-bar span{margin-left:6px;font-weight:500;color:var(--cf-ink-soft)}
+  .cal-title{color:var(--cf-ink);font-weight:700;font-size:.82rem;margin:0 0 8px}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+  .cal-grid span{padding:3px 0;border-radius:5px;font-size:.6rem;color:var(--cf-ink-soft)}
+  .cal-grid .dow{color:#6f6f78;font-size:.52rem}
+  .cal-grid .hl{background:var(--cf-accent);color:#fff;font-weight:700}
+  .cal-event{margin-top:9px;background:rgba({{ACCENT_RGB}},.16);border:1px solid var(--cf-accent);border-radius:var(--cf-radius-sm);padding:6px 9px;color:var(--cf-ink);font-weight:600;font-size:.62rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* text message */
+  .txt-mock{text-align:center;font-size:.66rem}
+  .txt-avatar{width:27px;height:27px;border-radius:50%;background:var(--cf-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.74rem;margin:0 auto}
+  .txt-sender{color:var(--cf-ink);font-weight:600;font-size:.72rem;margin-top:5px}
+  .txt-meta{color:#6f6f78;font-size:.55rem;margin-top:2px}
+  .txt-bubble{text-align:left;background:{{BUBBLE_BG}};color:{{BUBBLE_INK}};border-radius:var(--cf-radius-sm) var(--cf-radius-sm) var(--cf-radius-sm) 4px;padding:8px 11px;line-height:1.45;margin-top:10px}
+  .txt-reply{background:var(--cf-accent);color:#fff;border-radius:var(--cf-radius-sm) var(--cf-radius-sm) 4px var(--cf-radius-sm);padding:5px 14px;font-weight:700;margin:7px 0 0 auto;width:max-content}
+  /* video thumbnail */
+  .step-thumb{position:relative;aspect-ratio:16/9;width:100%;border-radius:var(--cf-radius-md);overflow:hidden;background:var(--cf-bg-elev)}
+  .step-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .step-thumb .ply{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--cf-accent);display:flex;align-items:center;justify-content:center}
+  .step-thumb .ply svg{width:15px;height:15px;fill:#fff;margin-left:2px}
+  .step-thumb .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 10px 7px;font-size:.62rem;font-weight:600;color:#fff;text-align:left;background:linear-gradient(transparent,rgba(0,0,0,.78))}
+
+  /* "watch this before we talk" — dark card: optional video + resource links */
+  .resources{background:var(--cf-page);padding:0 0 clamp(44px,6vw,78px)}
+  .res-card{background:var(--cf-card);color:var(--cf-ink);border-radius:{{HERO_RADIUS}};padding:clamp(30px,4vw,52px);max-width:var(--cf-maxw);margin:0 auto;box-shadow:{{CARD_SHADOW}}}
+  .res-card h2{font-weight:700!important;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.16;letter-spacing:-.01em;color:var(--cf-ink);text-align:center;margin:0 0 clamp(24px,3vw,34px)}
+  .bwt-grid{display:grid;grid-template-columns:1fr;gap:clamp(22px,3vw,40px);max-width:720px;margin:0 auto;align-items:start}
+  .bwt-grid.has-video{grid-template-columns:1.08fr .92fr;max-width:var(--cf-maxw)}
+  .yt-embed{display:block;position:relative;aspect-ratio:16/9;border-radius:var(--cf-radius-md);overflow:hidden;border:1px solid var(--cf-line);background:var(--cf-bg-elev);cursor:pointer;text-decoration:none}
+  .yt-embed img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .yt-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border:0;border-radius:50%;background:var(--cf-accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .18s ease,background .18s ease}
+  .yt-embed:hover .yt-play{transform:translate(-50%,-50%) scale(1.06);background:var(--cf-accent-bright)}
+  .yt-play svg{width:24px;height:24px;fill:#fff;margin-left:3px}
+  .bwt-caption{margin:13px 0 0;font-size:.92rem;font-weight:500;line-height:1.4;color:var(--cf-ink-soft);text-align:center}
+
+  /* ════════ 404 — page not found (centered dark hero) ════════ */
+  .nf-code{font-weight:800;font-size:clamp(3.5rem,11vw,7rem);line-height:.92;letter-spacing:-.04em;color:var(--cf-accent-bright)}
+  .nf-cta{margin-top:clamp(24px,3vw,32px)}
+  .res-list{display:flex;flex-direction:column;gap:13px;min-width:0}
+  .res-item{display:flex;align-items:center;gap:16px;background:var(--cf-bg-elev);border:1px solid var(--cf-line);border-radius:var(--cf-radius-md);padding:17px 20px;text-decoration:none;transition:border-color .18s ease,transform .18s ease}
+  .res-item:hover{border-color:var(--cf-accent);transform:translateY(-2px)}
+  .res-text{flex:1 1 auto;min-width:0}
+  .res-text h3{font-weight:600;font-size:1.05rem;color:var(--cf-ink);margin:0 0 4px}
+  .res-text p{color:var(--cf-ink-soft);font-size:.9rem;line-height:1.5;margin:0}
+  .res-arrow{flex:0 0 auto;width:32px;height:32px;border-radius:var(--cf-radius-sm);background:var(--cf-accent);color:#fff;display:flex;align-items:center;justify-content:center}
+  .res-arrow svg{width:16px;height:16px}
+
+  /* confirmation responsive */
+  @media (max-width:760px){
+    .steps-grid{grid-template-columns:1fr;gap:16px}
+    .step-visual{height:auto}
+    .confirm-reminder p{flex-basis:100%}
+    .bwt-grid.has-video{grid-template-columns:1fr;gap:24px}
+    .res-item{padding:16px 18px;gap:14px}
+  }
+
+  /* ════════ RESULTS — testimonial videos + platform reviews ════════ */
+  .results-page{max-width:var(--cf-maxw);margin:0 auto;padding:clamp(28px,4vw,52px) 24px clamp(48px,7vw,84px)}
+  .results-head{text-align:center;max-width:720px;margin:0 auto clamp(30px,4vw,46px)}
+  .results-eyebrow{display:inline-block;font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cf-accent);margin-bottom:12px}
+  .results-head h1{font-family:var(--cf-head-font)!important;font-weight:700!important;font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-.02em;color:var(--cf-light-ink);margin:0}
+  .results-sub{font-size:clamp(1.04rem,1.5vw,1.2rem);line-height:1.6;color:var(--cf-light-muted);max-width:600px;margin:18px auto 0}
+
+  /* video testimonial grid */
+  .vid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,2.6vw,32px)}
+  .vid-card{background:#fff;border:1px solid rgba(16,16,16,.08);border-radius:var(--cf-radius);overflow:hidden;box-shadow:0 12px 34px -22px rgba(16,16,16,.22);display:flex;flex-direction:column}
+  .vid-embed{position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;overflow:hidden}
+  .vid-embed img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease,opacity .2s ease}
+  .vid-embed:hover img{transform:scale(1.04);opacity:.92}
+  .vid-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  .vid-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;background:var(--cf-accent);display:flex;align-items:center;justify-content:center;transition:transform .18s ease,background .18s ease;pointer-events:none}
+  .vid-embed:hover .vid-play{transform:translate(-50%,-50%) scale(1.08);background:var(--cf-accent-bright)}
+  .vid-play svg{width:24px;height:24px;fill:#fff;margin-left:3px}
+  .vid-embed.is-playing .vid-play{display:none}
+  .vid-meta{padding:clamp(18px,2vw,24px);display:flex;flex-direction:column;gap:10px}
+  .vid-quote{font-size:1.04rem;line-height:1.5;color:var(--cf-light-ink);font-weight:500;margin:0}
+  .vid-name{font-size:.92rem;color:var(--cf-light-ink);font-weight:600;margin:0}
+  .vid-name span{color:var(--cf-light-muted);font-weight:400}
+
+  /* ════════ RESULTS — two-column testimonial rows (text ↔ video, alternating) ════════ */
+  .results-rows{max-width:var(--cf-maxw);margin:0 auto;padding:clamp(18px,3vw,34px) 24px 0;display:flex;flex-direction:column;gap:clamp(44px,6vw,84px)}
+  .result-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,60px);align-items:center}
+  .result-row:nth-child(even) .result-video{order:2}
+  .result-video{position:relative;aspect-ratio:16/9;border-radius:var(--cf-radius);overflow:hidden;background:#000;box-shadow:0 20px 54px -28px rgba(16,16,16,.35)}
+  .result-video iframe{display:block;position:absolute;inset:0;width:100%;height:100%;border:0}
+  .result-text{text-align:left}
+  .result-headline{display:block;color:var(--cf-light-ink);font-weight:800;font-size:clamp(1.4rem,2.4vw,1.9rem);line-height:1.14;letter-spacing:-.015em;margin:0 0 12px}
+  .result-stat{display:block;color:var(--cf-accent);font-weight:800;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.08;letter-spacing:-.01em;margin:0 0 16px}
+  /* when a headline leads the card, the $ stat becomes a smaller accent sub-line under it */
+  .result-headline + .result-stat{font-size:clamp(1.05rem,1.7vw,1.3rem);font-weight:700;margin:0 0 16px}
+  .result-qmark{display:block;font-family:Georgia,serif;font-size:3.4rem;line-height:.7;color:var(--cf-accent);font-weight:700;margin-bottom:6px}
+  .result-quote{font-size:clamp(1.15rem,1.9vw,1.5rem);line-height:1.5;color:var(--cf-light-ink);font-weight:500;margin:0 0 18px}
+  .result-name{font-size:1rem;color:var(--cf-light-ink);font-weight:700;margin:0}
+  .result-name span{color:var(--cf-light-muted);font-weight:400}
+  @media (max-width:760px){
+    .result-row{grid-template-columns:1fr;gap:18px}
+    .result-row:nth-child(even) .result-video{order:0}
+  }
+
+  /* platform reviews */
+  /* nested inside .results-page (already max-width + 24px padding) — no own
+     horizontal padding/max-width or the cards double-inset vs the video grid above */
+  .results-reviews{margin:clamp(46px,6vw,76px) 0 0}
+  .results-reviews h2{text-align:center;font-weight:700!important;font-size:clamp(1.6rem,3.2vw,2.3rem);letter-spacing:-.01em;color:var(--cf-light-ink);margin:0 0 clamp(26px,3.5vw,40px)}
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,26px)}
+  .review-grid--2{grid-template-columns:repeat(2,1fr);max-width:820px;margin-left:auto;margin-right:auto}
+  .review-grid--1{grid-template-columns:minmax(0,460px);justify-content:center}
+  .review-card{background:#f1f1f1;border-radius:var(--cf-radius);padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px}
+  .stars{color:var(--cf-accent);font-size:1.05rem;letter-spacing:2px;line-height:1}
+  .review-quote{font-size:.98rem;line-height:1.6;color:var(--cf-light-ink);margin:0;flex:1 1 auto}
+  .review-by{display:flex;align-items:center;gap:12px}
+  .review-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;flex:0 0 auto}
+  .review-byline{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .review-name{font-weight:600;color:var(--cf-light-ink);font-size:.94rem}
+  .review-detail{color:var(--cf-light-muted);font-size:.84rem}
+  .platform-badge{align-self:flex-start;font-size:.72rem;font-weight:600;letter-spacing:.02em;color:var(--cf-light-muted);background:rgba(16,16,16,.05);border:1px solid rgba(16,16,16,.08);border-radius:999px;padding:4px 11px}
+
+  .results-cta{text-align:center;margin-top:clamp(40px,5vw,64px)}
+
+  /* ════════ FAQ VIDEOS (confirmation page) ════════ */
+  .faq-section{max-width:var(--cf-maxw);margin:0 auto;padding:clamp(10px,2vw,28px) 0 clamp(40px,6vw,68px)}
+  .faq-heading{text-align:center;font-weight:700!important;font-size:clamp(1.6rem,3.4vw,2.3rem);letter-spacing:-.01em;line-height:1.14;color:var(--cf-light-ink);margin:0 0 8px}
+  .faq-sub{text-align:center;color:var(--cf-light-muted);font-size:clamp(1rem,1.4vw,1.12rem);max-width:580px;margin:0 auto clamp(24px,3.4vw,40px)}
+  .faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,2.6vw,30px)}
+  .faq-card{background:#fff;border:1px solid rgba(16,16,16,.08);border-radius:var(--cf-radius);overflow:hidden;box-shadow:0 12px 34px -22px rgba(16,16,16,.22);display:flex;flex-direction:column}
+  .faq-video{position:relative;aspect-ratio:16/9;background:#000}
+  .faq-video iframe{display:block;position:absolute;inset:0;width:100%;height:100%;border:0}
+  .faq-q{font-weight:600;font-size:1.02rem;line-height:1.4;color:var(--cf-light-ink);margin:0;padding:clamp(15px,1.8vw,20px)}
+  @media (max-width:760px){ .faq-grid{grid-template-columns:1fr} }
+
+  /* results responsive */
+  @media (max-width:980px){ .review-grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:760px){
+    .vid-grid{grid-template-columns:1fr;gap:18px}
+    .review-grid{grid-template-columns:1fr}
+  }
+
+  /* ════════ ABOVE-THE-FOLD DEFENSE — height-scoped hero trims ════════
+     Backported from the proven Scalability fix (see funnel-qc/references/above-the-fold.md).
+     Width-scoped rules alone hid the most expensive QC failure this system has had: the
+     primary CTA rendering below the fold on short-viewport phones (iPhone SE class ~553px,
+     iPhone 14 ~664px) while looking fine at taller test sizes. These blocks trim vertical
+     rhythm ONLY where height is genuinely tight, so roomier phones keep the full design.
+     The overline is a qualifier, not the offer — it is the first thing to go. */
+  @media (max-width:600px) and (max-height:700px){
+    .hero-card{padding-top:12px}
+    .hero-copy h1{margin-top:14px;font-size:clamp(1.7rem,7.4vw,2rem)}
+    .sub{margin-top:12px;font-size:1rem}
+    .hero-media{margin-top:15px}
+    .cta-mobile{margin-top:15px}
+    .optin-hero-img{margin:14px 0 2px}
+    .optin-hero-trust{margin-top:14px}
+    .cal-page{padding-top:20px}
+    .cal-page h1{margin-bottom:18px}
+  }
+  @media (max-width:600px) and (max-height:620px){
+    .hero-card{padding-top:8px}
+    .overline{display:none}
+    .hero-copy h1{margin-top:0;font-size:clamp(1.55rem,6.8vw,1.8rem)}
+    .sub{margin-top:9px;font-size:.95rem}
+    .hero-media{margin-top:11px}
+    .cta-mobile{margin-top:11px}
+    .optin-hero-img{display:none}
+    .optin-inner .overline{display:block;font-size:.9rem}  /* opt-in overline doubles as intro copy — keep it */
+  }

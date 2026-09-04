@@ -1,0 +1,32 @@
+  <!-- ═══ TYPEFORM APPLICATION — light section ═══ -->
+  <section class="book book--typeform io" id="book">
+    <div class="wrap">
+      <div class="book-head">
+        <h2>{{VSL_FORM_HEADING}}</h2>
+      </div>
+      <div class="form-shell typeform-shell">
+        <div data-tf-live="{{TYPEFORM_ID}}" data-tf-transitive-search-params="utm_source,utm_medium,utm_campaign,utm_term,utm_content,gclid,fbclid"></div>
+      </div>
+    </div>
+    <!-- Typeform loads when this section is near the viewport so it cannot starve the VSL. -->
+    <script>
+      (function(){
+        var target=document.querySelector('#book [data-tf-live], [data-tf-live]');
+        if(!target){return;}
+        var loaded=false;
+        function loadTypeform(){
+          if(loaded){return;}
+          loaded=true;
+          var s=document.createElement('script');
+          s.src='https://embed.typeform.com/next/embed.js';
+          s.async=true;
+          document.body.appendChild(s);
+        }
+        if(!('IntersectionObserver' in window)){loadTypeform();return;}
+        var io=new IntersectionObserver(function(entries){
+          if(entries[0]&&entries[0].isIntersecting){loadTypeform();io.disconnect();}
+        },{rootMargin:'600px'});
+        io.observe(target);
+      })();
+    </script>
+  </section>

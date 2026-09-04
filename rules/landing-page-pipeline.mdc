@@ -1,0 +1,29 @@
+---
+description: Router for Peter OS landing-page skills. Sends funnel work through build → QC → host deploy.
+alwaysApply: true
+---
+# Landing Page Pipeline
+
+Client landing pages use this plugin. Do not hand-roll HTML or paste into GHL outside these skills. The only deploy path is GoHighLevel.
+
+## When to Use Each Skill
+
+**Building or editing funnel pages?**
+Read `skills/client-funnel-pages/SKILL.md`. Output is host-agnostic `standalone/` HTML plus one shared stylesheet.
+
+**Verifying a built funnel?**
+Read `skills/funnel-qc/SKILL.md`. Run it in a fresh context after every build or edit. The builder does not grade its own work.
+
+**Pasting a SHIP'd funnel into GoHighLevel?**
+Read `skills/deploy-ghl/SKILL.md`. Only after `funnel-qc` SHIP.
+
+## Pipeline
+
+`client-funnel-pages` → `funnel-qc` → `deploy-ghl`.
+
+## General Rules
+
+- Copy facts come from the client vault. Styling comes from Drive `_brand/brand.jsonc` and existing built pages.
+- Before drafting copy, read `copywriting/` at the workspace root (`voice-principles.md`, `banned-phrases.md`, `banned-patterns.md`, `proof-discipline.md`, `copywriting-playbook.md`).
+- Canonical page output is `Shared drives/03 Pod 1 | Social Club Studios/01 Landing Pages`.
+- This plugin does not write VSL scripts. Use `method-vsl` or `authority-vsl` for scripts, then this pipeline for pages.

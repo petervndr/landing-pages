@@ -1,0 +1,201 @@
+// ════════════════════════════════════════════════════════════════════════
+//  BRAND BRIEF — EXAMPLE (Scale Your Accounting Firm)
+//  A fully filled-in brief. Copy brand-brief.template.jsonc for a new client.
+//  Comments must sit on their OWN line and start with //  (URLs are safe).
+// ════════════════════════════════════════════════════════════════════════
+{
+  // Which pages to build. Drop any you don't need.
+  "pages": ["vsl", "opt-in", "book-a-call", "confirmation", "privacy", "terms", "404"],
+
+  // Folder name for the output (kebab-case).
+  "client_slug": "syaf",
+
+  // ── BRAND IDENTITY (shared across every page) ──
+  "brand_name": "Scale Your Accounting Firm",
+  "legal_entity": "Scale Your Accounting Firm, LLC",
+  "accent": "#6800fc",
+  "accent_bright": "#7d28ff",       // hover shade; omit/null to auto-lighten the accent
+  "page_bg": "#f5f5f5",             // optional (default #f5f5f5)
+  "card_bg": "#121212",             // optional (default #121212)
+  "font_family": "Poppins",         // optional (default Poppins) — any Google Font
+  // Wordmark shown on LIGHT backgrounds (top bar + footer). Use the dark/black version.
+  "logo_url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/690bca11095b9c6b7ddd62ec.png",
+  // White version of the wordmark — used on mobile dark-hero pages (header goes dark to merge with the hero).
+  "logo_white_url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/690bcb6fffc100742a47c691.png",
+  "logo_aspect": "2476 / 149",      // the logo image's width / height (keeps it undistorted)
+
+  // ── VSL LANDING PAGE ──
+  "vsl": {
+    "page_title": "Book a Strategy Session | Scale Your Accounting Firm",
+    "meta_description": "For accounting firms doing $250K to $2M. Learn the systems to buy back your time, get high-ticket advisory clients, and scale your firm to $2M+. Watch the video, then book a Strategy Session.",
+    "og_title": "Book a Strategy Session | Scale Your Accounting Firm",
+    "og_description": "You're running the firm. Who's building the business? Watch the video, then book a call.",
+    "callout": "For accounting firms doing $250K to $2M in revenue",
+    "headline": "You're Running the Firm. Who's Building the Business?",
+    "subheadline": "Learn the systems to buy back your time, get high-ticket advisory clients, and scale your firm to $2M+.",
+    "cta_text": "Book Your Strategy Session",
+    "form_heading": "Book Your Strategy Session",
+    "wistia_id": "lyz4xux7p5",
+    "typeform_id": "01KTY1V09ZQJ3C7JMT0RYBK8G5",
+    "trust_logos": [
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6a2ddab6c5c622320672afd4.png", "alt": "TS365" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6a2ddab5c5c622320672afb2.png", "alt": "GTG Tax" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6a2ddab5c53e51acc0f0c20a.png", "alt": "Liebert" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6a2ddab58a3c98ce56794e88.png", "alt": "LedgerWay" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6a2ddab5c53e51acc0f0c20f.png", "alt": "Rhythm" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6a2ddab5e650055aa2236cb4.png", "alt": "Tooth & Coin" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6a2ddab5e650055aa2236cae.png", "alt": "ProMover" }
+    ]
+  },
+
+  // ── OPT-IN / LEAD-MAGNET PAGE ──
+  "optin": {
+    "page_title": "Free Gift: The $30M Scaling Blueprint | Scale Your Accounting Firm",
+    "meta_description": "Get the $30M Scaling Blueprint — the right offers, lead-gen strategies, and hiring ladder to scale your accounting firm to $2M+ in 2026.",
+    "eyebrow": "ACCOUNTING FIRM OWNERS:",
+    "headline": "You're Running The Firm. Who's Building The Business?",
+    "headline_highlight": "Who's Building The Business?",
+    "subheadline": "This $30M Scaling Blueprint Shows You The Path To Buying Back Your Time, Building Your Own Marketing Strategy, And Scaling To $2M+",
+    "fineprint": "*Our team is responsible for over $30M of revenue for accounting firms around the US. We are in no way implying this resource alone will generate you $30M. We're simply documenting what's worked for our firms and our clients.",
+    "cta_text": "Get Your Blueprint",
+    // The lead-magnet cover/mockup image. Replace with the real asset URL.
+    "lead_magnet_image": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6a26bd90d91f654725aac894.png",
+    "trust_heading": "Loved by firm owners at...",
+    // Dark/color logo versions for the light trust band (pulled from the live page).
+    "trust_logos": [
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6953ec733c9dbf9c3056c141.png", "alt": "TS365" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6953ec73035c3a587eddb24a.png", "alt": "Scalability" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6953ec73035c3a7808ddb250.png", "alt": "Rhythm Accounting" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6953ec739e7c13b1c308a00b.png", "alt": "Tooth & Coin" },
+      { "url": "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6953ec738224767770ad8ba2.png", "alt": "Liebert" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6953ec73c0d43232679bb13a.png", "alt": "ProMover" },
+      { "url": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6953ec739e7c1373f208a00c.png", "alt": "TRA Tax Relief" }
+    ],
+    "form": {
+      "qualifier_label": "Revenue",
+      "qualifier_options": ["Under $250K/yr", "$250K–$500K/yr", "$500K–$1M/yr", "$1M–$2M/yr", "$2M+/yr"],
+      // GHL custom-field name for the Revenue field on the hidden form (found by inspecting it).
+      "ghl_qualifier_field": "FcSLvOBaS607u5d61IIc",
+      "submit_text": "Get Access",
+      // Omit/null to auto-generate a generic consent line.
+      "consent": "By providing your information you consent to Scale Your Accounting Firm, LLC contacting you by phone, text, or email using automated telephone dialing systems and AI to the information provided, even if the phone number is present on a state or national Do Not Call List. We do not sell your personal information. By providing this information you agree to our Privacy Policy and Terms of Service.",
+      "success_message": "You're in! Check your inbox for the $30M Scaling Blueprint.",
+      "success_redirect": null   // or a thank-you/next-step URL
+    },
+    "whats_inside": {
+      "heading": "What's in this Scaling Blueprint?",
+      "intro": [
+        "We're responsible for over $30M of accounting firm revenue, and we've helped dozens of firms add $100k/yr or more in revenue.",
+        "We've documented EVERYTHING we know inside this Scaling Blueprint…",
+        "AND we're giving it away for the first time, completely free."
+      ],
+      "bullets": [
+        { "icon": "💜", "lead": "Marketing Strategies", "text": "The lead-gen strategies working for our 100+ clients in 2026" },
+        { "icon": "✂️", "lead": "Offers & Sales Process", "text": "Collect more cash upfront and shorten your sales process" },
+        { "icon": "🔒", "lead": "Operations & Hiring", "text": "Our frameworks for SOP creation, org charts, and systems to do the work" },
+        { "icon": "🏛️", "lead": "$30M of Industry Expertise", "text": "We're responsible for over $30M of accounting firm revenue, and these strategies come directly from that experience" }
+      ]
+    },
+    "founder": {
+      "heading": "Hey, I'm Peter 👋",
+      "photo": "https://assets.cdn.filesafe.space/uxMWsqoQYySSOX0VNSui/media/6a10af723c3aed7c6388daaa.jpg",
+      "intro": "Here's what you need to know about me:",
+      "bullets": [
+        "Built my first 6-figure business at 19",
+        "Helped a CPA scale from $100k/yr to $1.7M/yr in 2 years (2022-2023)",
+        "Helped a bookkeeper scale from $30k/mo to $92k/mo (2024-2025)",
+        "Helped a tax planner scale from $60k/mo to $400k/mo in 2025",
+        "Worked with 100+ firms between $100k/yr and $30M/yr (2022-today)"
+      ],
+      "closing": "And I built this scaling blueprint as a way to share the lessons I've learned."
+    }
+  },
+
+  // ── BOOK-A-CALL PAGE ──
+  "book": {
+    "page_title": "Schedule Your Strategy Session | Scale Your Accounting Firm",
+    "meta_description": "Schedule your SYAF Strategy Session.",
+    "headline": "Schedule Your Strategy Session",
+    "calendly_url": "https://calendly.com/scale-your-accounting-firm/scale-your-accounting-firm-strategy-call-2?hide_gdpr_banner=1"
+  },
+
+  // ── CALL CONFIRMATION / THANK-YOU PAGE ──
+  "confirmation": {
+    "page_title": "You're Booked — Watch This Before Your Call | Scale Your Accounting Firm",
+    "meta_description": "Your SYAF Strategy Session is booked. Watch the short video and do 3 quick things so your call goes ahead.",
+    "eyebrow": "✓ Your Call Is Booked",
+    "headline": "Watch This Short Video So Your Call Isn't Cancelled",
+    "headline_highlight": "Isn't Cancelled",
+    "subheadline": "Due to spam, unconfirmed appointments may be canceled.",
+    "wistia_id": "lyz4xux7p5",   // placeholder — swap in the real confirmation video id
+    "cue": "👇 Watch this before your call",
+    // Reminder strip is plain text (no button) — tells them how to confirm. An @handle/email is auto-bolded.
+    "reminder": "Accept the calendar invite from @purpusconsulting.com to confirm your appointment.",
+    "steps_eyebrow": "Your Next Steps",
+    "steps_heading": "Do these 3 things to get the most out of your call",
+    "steps": [
+      {
+        "title": "Add it to your calendar",
+        "text": "Your invite is in your confirmation email and text — accept it so you don't forget.",
+        "visual": { "type": "calendar", "event": "Strategy Call with SYAF", "day": 10 }
+      },
+      {
+        "title": "Reply YES to confirm",
+        "text": "We'll text you within 10 minutes. Just reply YES to lock in your spot.",
+        "visual": { "type": "text", "sender": "Scale Your Accounting Firm", "message": "Hey! This is the team at SYAF 👋 I saw you booked a call with us. To lock in your spot, just reply YES 😊", "reply": "YES" }
+      },
+      {
+        "title": "Learn more about how our service works",
+        "text": "Watch the quick video below to see exactly how we help firms like yours.",
+        "href": "#before-we-talk",
+        "visual": { "type": "thumb", "url": "https://img.youtube.com/vi/gO7lH1motAo/hqdefault.jpg", "caption": "How our service works — watch this" }
+      }
+    ],
+    // A video here shows in a 2-col "before we talk" block, with the resource links beside it.
+    "video": "https://youtu.be/gO7lH1motAo",
+    "video_caption": "How Tax Strategy 365 Scaled to $3M/yr in 3 Years",
+    "resources_heading": "Learn more about how our service works",
+    "resources": [
+      { "title": "Client case studies & results", "text": "See what firms like yours have achieved.", "url": "https://joinsyaf.com/results" },
+      { "title": "Frequently asked questions", "text": "Quick answers before we talk.", "url": "https://joinsyaf.com/faq" },
+      { "title": "Want to go deeper?", "text": "How our service works before the call.", "url": "https://joinsyaf.com/accelerator" }
+    ]
+  },
+
+  // ── 404 / PAGE NOT FOUND ──
+  "404": {
+    "page_title": "Page Not Found | Scale Your Accounting Firm",
+    "meta_description": "The page you're looking for isn't here.",
+    "headline": "We can't find that page.",
+    "subline": "The link may be broken, or the page may have moved. Head back home and we'll point you in the right direction.",
+    "cta_text": "Back to Home",
+    "cta_url": "https://joinsyaf.com"
+  },
+
+  // ── LEGAL (privacy + terms) ──
+  "legal": {
+    "website_url": "joinsyaf.com",
+    "support_email": "support@joinsyaf.com",
+    "governing_state": "Indiana",
+    "venue": "Lake County, Indiana",
+    "arbitration_body": "American Arbitration Association (AAA)",
+    "last_updated": "June 15, 2026",   // omit/null to use today's date
+    "copyright_year": 2026             // omit/null to use the current year
+  },
+
+  // ── FOOTER (shared) ──
+  "footer": {
+    "address_line1": "9111 Broadway STE E",
+    "address_line2": "Merrillville, IN 46410",
+    "privacy_url": "https://joinsyaf.com/privacy",
+    "terms_url": "https://joinsyaf.com/terms",
+    "social": {
+      "instagram": "https://www.instagram.com/scaleyouraccountingfirm/",
+      "youtube": "https://www.youtube.com/@scaleyouraccountingfirm",
+      "linkedin": "https://www.linkedin.com/company/scale-your-accounting-firm",
+      "facebook": "https://www.facebook.com/profile.php?id=61577955820979"
+    },
+    // Earnings disclaimer. Omit/null to auto-generate a generic version.
+    "disclaimer": "The results referenced on this website are not typical and are not a guarantee of your success. The instructors at Scale Your Accounting Firm are experienced business owners and operators, and your results will vary depending on your education, effort, application, experience, and background. Due to the sensitivity of financial information, we do not track the typical results of our students or clients. We cannot guarantee that you will make money or that you will be successful if you apply the strategies we teach, whether specifically or generally. Consequently, your results may significantly vary from any examples referenced. We do not provide investment, tax, accounting, legal, or other professional advice; specific transactions and experiences are mentioned for informational purposes only. The content within this website is the property of Scale Your Accounting Firm, LLC. Any use of the images, content, or ideas expressed herein without the express written consent of Scale Your Accounting Firm, LLC is prohibited. Copyright © 2026 Scale Your Accounting Firm, LLC. All Rights Reserved."
+  }
+}
